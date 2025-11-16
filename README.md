@@ -1,39 +1,52 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Piper Phonemizer
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+**Piper Phonemizer** is a lightweight and efficient text-to-phoneme converter powered by the open-source [Piper TTS engine](https://github.com/rhasspy/piper). This package allows you to convert raw text into phoneme sequences—ideal for speech synthesis, linguistic analysis, pronunciation training, and more.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+---
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## ✨ Features
 
-## Features
+- ⚡ **Fast and Lightweight**: Designed for performance and minimal resource usage.
+- 🔤 **Text to Phoneme Conversion**: Converts plain text into language-specific phonemes.
+- 📦 **FFI-based**: Built in C for speed but easily usable from Dart (Flutter), Python, and more.
+- 🌍 **Multi-language Support**: Works with different voices and phoneme schemes.
+- 📱 **Mobile Ready**: Optimized for embedded and mobile use cases (like Flutter apps).
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+---
 
-## Getting started
+## 💡 Inspiration
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+While Piper is a fantastic lightweight TTS engine, there was no simple and reliable way to convert raw text into phonemes that could be directly consumed by Piper for tasks like voice cloning, custom TTS, or linguistic analysis—especially in mobile or embedded environments.
 
-## Usage
+Existing solutions were often:
+- Tightly coupled to heavyweight systems,
+- Buried inside larger TTS pipelines, or
+- Not cross-platform or easy to use with Dart, Flutter, or FFI-based setups.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+To bridge this gap, **Piper Phonemizer** was created — a clean, minimal, and efficient way to:
+- Generate phonemes with Piper’s models,
+- Enable phoneme-level analysis,
+- And unlock lower-level control in your TTS workflows.
+
+If you’ve ever wished for a drop-in phonemizer that just works with Piper, especially in a Flutter app or lightweight deployment, this package is for you.
+
+
+## 🧪 Minimal Reproducible Example
+
+Here’s how to get started in Dart:
 
 ```dart
-const like = 'sample';
-```
+import 'package:piper_phonemizer/piper_phonemizer.dart';
 
-## Additional information
+void main() async {
+  final phonemizer = PiperPhonemizer();
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+  await phonemizer.initialize();
+
+  // Optional: Set a voice according to your requirement.
+  // For more voice options, check: https://github.com/OHF-Voice/piper1-gpl/blob/main/docs/VOICES.md
+  phonemizer.setVoice("en"); // Default English voice
+
+  final phonemes = phonemizer.getPhonemesString('Hello world');
+  print('Phonemes: $phonemes');
+}
