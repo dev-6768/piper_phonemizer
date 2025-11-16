@@ -12,7 +12,12 @@ void main() {
 void tester() async {
   final phonemizer = PiperPhonemizer();
   await phonemizer.initialize();
-  phonemizer.setVoice("en"); //or set a voice according to your convenience,
+  
+  //or set a voice according to your convenience, for more voice types look into piper website
+  //https://github.com/OHF-Voice/piper1-gpl/blob/main/docs/VOICES.md
+
+  phonemizer.setVoice("en"); 
+  
   final phonemes = phonemizer.getPhonemesString('Hello world');
   print('Phonemes: $phonemes');
 }
